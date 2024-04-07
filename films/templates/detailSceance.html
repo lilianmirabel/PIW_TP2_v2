@@ -14,9 +14,7 @@
         <p>Place disponible : {{ uneSceance.places_restantes }}</p>
         <p>Salle numero {{ uneSceance.salle.id }}</p>
         <p>Billet vendu : {{ uneSceance.places_vendues }}</p>
-        <!-- Bouton avec classes Bootstrap -->
         {% if uneSceance.places_restantes > 0 %}
-            <!-- Bouton avec classes Bootstrap -->
             <button id="reservationButton" class="btn btn-primary">Je réserve</button>
         {% else %}
             <p>Désolé, il n'y a plus de places disponibles pour cette séance.</p>
@@ -27,21 +25,18 @@
 
     <script>
         document.getElementById("reservationButton").addEventListener("click", function() {
-            // Afficher une boîte de dialogue de confirmation
             if (confirm("Êtes-vous sûr de vouloir réserver cette séance ?")) {
               window.location.href = "{% url 'reserverSceance' uneSceance.id %}";
             }
         });
 
         document.getElementById("modifierButton").addEventListener("click", function() {
-            // Afficher une boîte de dialogue de confirmation
             if (confirm("Seulement pour les administrateurs !!")) {
               window.location.href = "{% url 'ModifierSceance' uneSceance.id %}";
             }
         });
 
         document.getElementById("supprimerButton").addEventListener("click", function() {
-            // Afficher une boîte de dialogue de confirmation
             if (confirm("Seulement pour les administrateurs !!")) {
               window.location.href = "{% url 'SupprimerSceance' uneSceance.id %}";
             }
