@@ -1,0 +1,59 @@
+{% extends 'maitreFilm.html' %}
+{% block titre %}A l'Affiche{% endblock %}
+{% block titre_page %}{{unFilm.titre}}{% endblock %}
+{% block contenu %}
+<button id="modifierButton" class="btn btn-danger">Modifier</button>
+<button id="supprimerButton" class="btn btn-danger">Supprimer</button>
+<div style="display: flex;">
+  <div style="flex: 1;">
+    <center><img src="{{unFilm.image}}" alt="" width="250px"></center>
+  </div>
+  <div style="flex: 1;">
+    <br>
+    <center>
+      <h4>Recommandé pour les {{unFilm.age}}</h4>
+      <h4>{{unFilm.genre}} - {{unFilm.duree}}</h4>
+      <p>{{unFilm.resume}}</p>
+      <p>Réalisateur: {{unFilm.realisateur}}</p>
+      <p>Recommandé en {{unFilm.technologie}}</p>
+      <p>Date de sortie: {{unFilm.date_sortie}}</p>
+    </center>
+  </div>
+</div> 
+<br>
+<center><h2>Réserver une séance</h2></center>
+
+<script>
+  document.getElementById("modifierButton").addEventListener("click", function() {
+      if (confirm("Êtes-vous sûr de vouloir réserver ce film ?")) {
+        window.location.href = "{% url 'Modifierfilm' unFilm.titre %}";
+      }
+  });
+
+  document.getElementById("supprimerButton").addEventListener("click", function() {
+      if (confirm("Êtes-vous sûr de vouloir supprimer ce film !!")) {
+        window.location.href = "{% url 'SupprimerFilm' unFilm.titre %}";
+      }
+  });
+
+</script>
+{% if unFilm.seance_set.all %}
+  <center><h4>Séances disponibles :</h4></center>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+    {% for seance in seances %}
+    <a href="{% url 'detailSceance' seance.id %}" style="text-decoration: none; color: inherit;">
+      <div class="card {% if seance.places_restantes <= 0 %}bg-danger{% else %}bg-primary{% endif %} text-white" style="margin: 10px;">
+        <div class="card-body">
+          <h5 class="card-title">{{ seance.heure_diffusion|time:"H:i"  }} - {{ seance.places_restantes }} places</h5>
+          <p class="card-text">{{ seance.date }} | {{ seance.salle.technologie }}</p>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+{% else %}
+
+  <center><p>Aucune séance disponible pour le moment.</p></center>
+{% endif %}
+
+{% endblock %}

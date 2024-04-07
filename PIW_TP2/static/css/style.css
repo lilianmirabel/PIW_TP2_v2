@@ -1,0 +1,39 @@
+header {
+  background-image: url(../images/header.jpg);
+  background-repeat: no-repeat;
+  background-color: #7f0d17;
+  padding-bottom: 20px;
+  padding-top: 19px;
+}
+
+header h1 {
+  text-align: center;
+  color: aliceblue;
+}
+
+footer {
+  margin-top: auto;
+  background-color: #7f0d17;
+  padding: 10px;
+}
+
+footer p {
+  text-align: center;
+  color: aliceblue;
+}
+
+h2 {
+  margin-top: 10px;
+  margin-left: 25px;
+}
+
+h5 {
+  margin-left: 25px;
+}
+
+.paragraphe {
+  background-color: rgb(185, 185, 185);
+  border-radius: 10px;
+  margin-left: 25px;
+  margin-right: 25px;
+}

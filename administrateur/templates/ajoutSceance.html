@@ -1,0 +1,15 @@
+{% extends 'maitreAdmin.html' %}
+{% block titre %}Ajout de Film{% endblock %}
+{% block titre_page %}Ajouter une scéance{% endblock %}
+
+{% block contenu %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<form method="post">
+    <table>
+        {% csrf_token %}
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Ajouter">
+</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'maitreAdmin.html' %}
+{% block titre %}Modification scéance{% endblock %}
+{% block titre_page %}Modifier la scéance{% endblock %}
+
+{% block contenu %}
+<form method="post">
+    <table>
+        {% csrf_token %}
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Ajouter">
+</form>
+{% endblock %}

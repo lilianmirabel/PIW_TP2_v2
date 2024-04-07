@@ -1,0 +1,51 @@
+{% extends 'maitreFilm.html' %}
+{% block titre %}A l'Affiche{% endblock %}
+{% block titre_page %}Films à l'affiche{% endblock %}
+
+{% block contenu %}
+<div class="row justify-content-center">
+  <div class="btn-group mb-4" role="group" aria-label="Filtrer par âge">
+    <button type="button" class="btn btn-primary" id="adulteBtn">Adulte</button>
+    <button type="button" class="btn btn-primary" id="enfantBtn">Enfant</button>
+  </div>
+</div>
+
+<div class="row justify-content-center" id="filmsContainer">
+  {% for film in films %}
+  <div class="col-md-4 mb-4 align-self-center film-card {% if film.age == 'enfant' %}enfant{% else %}adulte{% endif %}">
+    <a href="{% url 'detailFilm' film.titre %}" class="text-decoration-none">
+      <div class="card" style="width: 18rem;">
+        <img src="{{ film.image }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ film.titre }}</h5>
+          <h6 class="card-title text-center">{{ film.genre }}</h6>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("adulteBtn").addEventListener("click", function() {
+    filterFilms("adulte");
+  });
+
+  document.getElementById("enfantBtn").addEventListener("click", function() {
+    filterFilms("enfant");
+  });
+});
+
+function filterFilms(ageGroup) {
+  const films = document.querySelectorAll(".film-card");
+  films.forEach(function(film) {
+    if (film.classList.contains(ageGroup)) {
+      film.style.display = "block";
+    } else {
+      film.style.display = "none";
+    }
+  });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'maitreFilm.html' %}
+{% block titre %}Reservation{% endblock %}
+{% block titre_page %}Reserver des places{% endblock %}
+
+{% block contenu %}
+<form method="post">
+    <table>
+        {% csrf_token %}
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Ajouter">
+</form>
+{% endblock %}

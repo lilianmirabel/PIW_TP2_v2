@@ -1,0 +1,13 @@
+{% extends 'maitreSalles.html' %}
+{% block titre %}Ajout d'une salle{% endblock %}
+{% block titre_page %}Ajouter une salle{% endblock %}
+
+{% block contenu %}
+<form method="post">
+    <table>
+        {% csrf_token %}
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Ajouter">
+</form>
+{% endblock %}

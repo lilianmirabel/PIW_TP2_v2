@@ -1,0 +1,13 @@
+{% extends 'maitreAdmin.html' %}
+{% block titre %}Modification film{% endblock %}
+{% block titre_page %}Modifier le film{% endblock %}
+
+{% block contenu %}
+<form method="post">
+    <table>
+        {% csrf_token %}
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Ajouter">
+</form>
+{% endblock %}
