@@ -58,12 +58,5 @@ class Seance(models.Model):
 
     class Meta:
         unique_together = (('salle', 'date', 'heure_diffusion'),)
-
-    # def save(self, *args, **kwargs):
-    #     if self.salle:
-    #         self.places_vendues = self.salle.place
-    #         print(self.places_vendues)
-    #     super().save(*args, **kwargs)
-
     
 

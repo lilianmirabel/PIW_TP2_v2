@@ -23,7 +23,6 @@ class AjoutFilmsForm(forms.ModelForm):
 
 
 class AjoutSceanceForm(forms.ModelForm):
-    # salle = ModelChoiceField(queryset=salles.objects.filter(technologie__in=films.objects.values('technologie')))
     
     class Meta:
         model = Seance
