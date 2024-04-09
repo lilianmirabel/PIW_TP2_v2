@@ -1,49 +1,58 @@
-{% extends 'maitreFilm.html' %}
+{% extends 'maitrePageFilm.html' %}
 {% block titre %}A l'Affiche{% endblock %}
-{% block titre_page %}{{ uneSceance.film.titre }} le {{ uneSceance.date }}{% endblock %}
+{% block titre_page %}
+    <center><h1>{{ uneSceance.film.titre }}</h1></center>
+    <center><h3>Projection du {{ uneSceance.date|date:"d/m/Y" }} à {{ uneSceance.heure_diffusion|time:"H:i" }}</h3></center>
+{% endblock %}
 {% block contenu %}
-    <center><h2>{{ uneSceance.salle.technologie }}</h2></center>
-    <center><img src="{{ uneSceance.film.image }}" alt="" width="250px"></center>
- 
-    <br>
-    <center>
-        <h4>Prix : {{ uneSceance.salle.prix_ticket }}$</h4>
-        <h4>Heure : {{ uneSceance.heure_diffusion|time:"H:i" }} H</h4>
-        <h4>Durée : {{ uneSceance.film.duree|time:"H:i"}} H</h4>
-        <p>Heure de fin : {{ heure_fin|time:"H:i"}} H</p>
-        <p>Place disponible : {{ uneSceance.places_restantes }}</p>
-        <p>Salle numero {{ uneSceance.salle.id }}</p>
-        <p>Billet vendu : {{ uneSceance.places_vendues }}</p>
-        {% if uneSceance.places_restantes > 0 %}
-            <button id="reservationButton" class="btn btn-primary">Je réserve</button>
-        {% else %}
-            <p>Désolé, il n'y a plus de places disponibles pour cette séance.</p>
-        {% endif %}
-        <button id="modifierButton" class="btn btn-danger">Modifier</button>
-        <button id="supprimerButton" class="btn btn-danger">Supprimer</button>
-    </center>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <img src="{{ uneSceance.film.image }}" class="card-img-top" alt="{{ uneSceance.film.titre }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ uneSceance.film.titre }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ uneSceance.film.genre }}</h6>
+                    <p class="card-text">{{ uneSceance.film.description }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Informations de la séance</h5>
+                    <p class="card-text">Prix du ticket : {{ uneSceance.salle.prix_ticket }}$</p>
+                    <p class="card-text">Durée du film : {{ uneSceance.film.duree|time:"H:i" }}</p>
+                    <p class="card-text">Places disponibles : {{ uneSceance.places_restantes }}</p>
+                    <p class="card-text">Salle numéro {{ uneSceance.salle.id }}</p>
+                    <p class="card-text">Billets vendus : {{ uneSceance.places_vendues }}</p>
+                        <button id="reservationButton" class="btn btn-primary">Réserver</button>
+                    <button id="modifierButton" class="btn btn-primary" href="{% url 'ModifierSceance' uneSceance.id %}">Modifier</button>
+                    <button id="supprimerButton" class="btn btn-primary" href="{% url 'SupprimerSceance' uneSceance.id %}">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script>
-        document.getElementById("reservationButton").addEventListener("click", function() {
-            if (confirm("Êtes-vous sûr de vouloir réserver cette séance ?")) {
-              window.location.href = "{% url 'reserverSceance' uneSceance.id %}";
-            }
-        });
+<script>
+    document.getElementById("reservationButton").addEventListener("click", function() {
+        if (confirm("Êtes-vous sûr de vouloir réserver cette séance ?")) {
+            window.location.href = "{% url 'reserverSceance' uneSceance.id %}";
+        }
+    });
 
-        document.getElementById("modifierButton").addEventListener("click", function() {
-            if (confirm("Seulement pour les administrateurs !!")) {
-              window.location.href = "{% url 'ModifierSceance' uneSceance.id %}";
-            }
-        });
+    document.getElementById("modifierButton").addEventListener("click", function() {
+        if (confirm("Cette action est réservée aux administrateurs. Continuer ?")) {
+            window.location.href = "{% url 'ModifierSceance' uneSceance.id %}";
+        }
+    });
 
-        document.getElementById("supprimerButton").addEventListener("click", function() {
-            if (confirm("Seulement pour les administrateurs !!")) {
-              window.location.href = "{% url 'SupprimerSceance' uneSceance.id %}";
-            }
-        });
-    </script>
-
-</div> 
-<br>
+    document.getElementById("supprimerButton").addEventListener("click", function() {
+        if (confirm("Cette action est réservée aux administrateurs. Continuer ?")) {
+            window.location.href = "{% url 'SupprimerSceance' uneSceance.id %}";
+        }
+    });
+</script>
 
 {% endblock %}

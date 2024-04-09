@@ -21,16 +21,7 @@ def detailFilm(request, pk):
 
 def detailSceance(request, pk):
     uneSceance = Seance.objects.get(id=pk)
-    uneSceance.places_restantes = uneSceance.salle.place - uneSceance.places_vendues
-
-    heure_diffusion_dt = datetime.combine(datetime.min, uneSceance.heure_diffusion)
-    duree_film_dt = datetime.combine(datetime.min, uneSceance.film.duree)
-
-    heure_fin_dt = heure_diffusion_dt + (duree_film_dt - datetime.min)
-
-    heure_fin = heure_fin_dt.time()
-
-    return render(request, 'detailSceance.html', {'uneSceance': uneSceance, 'heure_fin': heure_fin})
+    return render(request, 'detailSceance.html', {'uneSceance': uneSceance})
 
 
 
