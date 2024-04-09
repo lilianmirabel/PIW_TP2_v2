@@ -40,7 +40,6 @@ class films(models.Model):
     resume = models.TextField()
     duree = models.TimeField()
     image = models.CharField(max_length=100)
-    age = models.CharField(max_length=10, choices=AGE_CHOICES, default='adulte')
     technologie = models.CharField(max_length=10, choices=choix_technologies, default='Numérique')
 
 

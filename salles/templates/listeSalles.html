@@ -3,29 +3,34 @@
 {% block titre_page %}Liste des salles{% endblock %}
 
 {% block contenu %}
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Place</th>
-      <th>Technologie</th>
-      <th>Prix du ticket</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Place</th>
+        <th scope="col">Technologie</th>
+        <th scope="col">Prix du ticket</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
       {% for salle in salles %}
       <tr>
-          <td>{{ salle.id}}</td> 
-          <td>{{ salle.place}}</td>   
-          <td>{{ salle.technologie}}</td>  
-          <td>{{ salle.prix_ticket}}</td>  
-          <td><a href="{% url 'modifierSalle' salle.id %}"><button id="modifierButton" class="btn btn-primary">Modifier</button></a></td>
-          <td><a href="{% url 'supprimerSalle' salle.id %}"><button id="modifierButton" class="btn btn-primary">Supprimer</button></a></td>
-     </tr>
-    {% endfor %}
-    
-  </tbody>
-</table>
-<center><a href="/salles/ajoutSalle"><button id="modifierButton" class="btn btn-primary">Ajouter</button></a></center>
+        <td>{{ salle.id }}</td>
+        <td>{{ salle.place }}</td>
+        <td>{{ salle.technologie }}</td>
+        <td>{{ salle.prix_ticket }}</td>
+        <td>
+          <a href="{% url 'modifierSalle' salle.id %}" class="btn btn-primary">Modifier</a>
+          <a href="{% url 'supprimerSalle' salle.id %}" class="btn btn-danger">Supprimer</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="text-center">
+    <a href="/salles/ajoutSalle" class="btn btn-success">Ajouter une salle</a>
+  </div>
+</div>
 {% endblock %}

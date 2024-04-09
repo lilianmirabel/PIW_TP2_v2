@@ -12,8 +12,10 @@
                     <p class="card-text">{{ unFilm.genre }} - {{ unFilm.duree|time:"H:i" }}</p>
                     <p class="card-text">{{ unFilm.resume }}</p>
                     <p class="card-text">Réalisateur: {{ unFilm.realisateur }}</p>
-                    <p class="card-text">Recommandé en {{ unFilm.technologie }}</p>
+                    <p class="card-text">Technologie : {{ unFilm.technologie }}</p>
                     <p class="card-text">Date de sortie: {{ unFilm.date_sortie }}</p>
+                    <button><a class="nav-link" href="/administrateur/ajoutsceance">Ajout séance</a></button>
+                    
                 </div>
             </div>
         </div>

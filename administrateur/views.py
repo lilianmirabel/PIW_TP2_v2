@@ -23,8 +23,6 @@ def ajoutsceance(request):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect("/administrateur/ajoutsceance")
-        else:
-            print("La technologie du film ne correspond pas à celle de la salle.")
     else:
         form = AjoutSceanceForm()
     return render(request, "ajoutSceance.html", {'form': form})

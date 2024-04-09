@@ -2,9 +2,34 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../static/css/menu.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .navbar {
+            background-color: #343a40;
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Accueil</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,9 +44,9 @@
             <div class="navbar-nav ml-auto">
                 <a class="nav-link" href="/administrateur/ajoutfilm">Ajout film</a>
                 <a class="nav-link" href="/salles/listeSalle/">Salle</a>
-                <a class="nav-link" href="/administrateur/ajoutsceance">Ajout séance</a>
             </div>
         </div>
     </nav>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
