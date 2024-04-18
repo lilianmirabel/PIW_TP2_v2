@@ -1,0 +1,14 @@
+{% extends 'maitreSalles.html' %}
+{% block titre %}Supprimer une salle{% endblock %}
+{% block titre_page %}Supprimer la salle{% endblock %}
+
+{% block contenu %}
+<h4>Supprimer cette salle</h4>
+<form method="post">
+    <table>
+        {% csrf_token %}
+        <p>Voulez-vous supprimer {{ uneSalle.id }}</p>
+    </table>
+    <input type="submit" value="Supprimer">
+</form>
+{% endblock %}

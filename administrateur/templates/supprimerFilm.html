@@ -1,0 +1,14 @@
+{% extends 'maitreAdmin.html' %}
+{% block titre %}Supprimer un film{% endblock %}
+{% block titre_page %}Supprimer le film{% endblock %}
+
+{% block contenu %}
+<h4>Supprimer ce film</h4>
+<form method="post">
+    <table>
+        {% csrf_token %}
+        <p>Voulez-vous supprimer {{ unFilm.titre }}</p>
+    </table>
+    <input type="submit" value="Supprimer">
+</form>
+{% endblock %}

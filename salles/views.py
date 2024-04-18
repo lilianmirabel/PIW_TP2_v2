@@ -1,35 +1,54 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
+
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView, DetailView
+
 from salles.forms import AjoutSallesForm, ModifierSalleForm
 from films.models import salles
 
 
-def ajoutSalle(request):
-    if request.method == "POST":
-        form = AjoutSallesForm(request.POST)
-        if form.is_valid():
-            form.save()
-        return HttpResponseRedirect("/salles")
-    else:
-        form = AjoutSallesForm()
-    return render(request, "ajoutSalle.html", {'form':form})
+class ajoutSalle(CreateView):
+    template_name = 'ajoutSalle.html'
+    form_class = AjoutSallesForm 
 
-def listeSalle(request):
-    return render(request, "listeSalles.html", {'salles':salles.objects.all()})
+    def get_success_url(self):
+        return reverse('afficheFilm')
 
-def modifierSalle(request, pk):
-    uneSalle = salles.objects.get(id=pk) 
-    print(uneSalle)
-    if request.method == "POST":
-        form = ModifierSalleForm(request.POST, instance=uneSalle)
-        if form.is_valid():
-            print(form)
-            form.save()
-            return HttpResponseRedirect("/salles/listeSalle/")
-    else:
-        form = ModifierSalleForm(instance=uneSalle)
-    return render(request, 'modifierSalle.html', {'form': form})
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
-def supprimerSalle(request, pk):
-    salles.objects.get(id=pk).delete()
-    return HttpResponseRedirect("/salles/listeSalle/")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["txtBouton"] = 'Ajouter'
+        return context
+
+
+
+class listeSalle(ListView):
+    model = salles
+    template_name = "listeSalles.html"
+    context_object_name = 'salles'
+
+class modifierSalle(UpdateView):
+    model = salles
+    template_name = 'modifierSalle.html'
+    form_class = ModifierSalleForm
+    context_object_name = 'uneSalle'
+
+    def get_success_url(self):
+        return reverse('listeSalle')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["txtBouton"] = 'Modifier'
+        return context
+
+class supprimerSalle(DeleteView):
+    model = salles
+    template_name = 'supprimerSalle.html'
+    context_object_name = 'uneSalle'
+
+    def get_success_url(self):
+        return reverse('listeSalle')
