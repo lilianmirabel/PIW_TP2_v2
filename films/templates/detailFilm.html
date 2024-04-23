@@ -2,8 +2,10 @@
 {% block titre %}A l'Affiche{% endblock %}
 {% block titre_page %}{{unFilm.titre}}{% endblock %}
 {% block contenu %}
+{% if user.is_authenticated %}
 <button id="modifierButton" class="btn btn-danger">Modifier</button>
 <button id="supprimerButton" class="btn btn-danger">Supprimer</button>
+{% endif %}
 <div style="display: flex;">
   <div style="flex: 1;">
     <center><img src="{{unFilm.image}}" alt="" width="250px"></center>
@@ -25,7 +27,7 @@
 
 <script>
   document.getElementById("modifierButton").addEventListener("click", function() {
-      if (confirm("Êtes-vous sûr de vouloir réserver ce film ?")) {
+      if (confirm("Êtes-vous sûr de vouloir modifier ce film ?")) {
         window.location.href = "{% url 'Modifierfilm' unFilm.titre %}";
       }
   });

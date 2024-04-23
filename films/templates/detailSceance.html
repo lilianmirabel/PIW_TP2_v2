@@ -12,15 +12,22 @@
         <h4>Durée : {{ uneSceance.film.duree|time:"H:i"}} H</h4>
         <p>Heure de fin : {{ heure_fin|time:"H:i"}} H</p>
         <p>Place disponible : {{ uneSceance.places_restantes }}</p>
+        <!-- Places restantes : {{ uneSceance.places_restantes }} -->
         <p>Salle numero {{ uneSceance.salle.id }}</p>
         <p>Billet vendu : {{ uneSceance.places_vendues }}</p>
         {% if uneSceance.places_restantes > 0 %}
+            {% if user.is_authenticated %}
             <button id="reservationButton" class="btn btn-primary">Je réserve</button>
+            {% else %}
+            <button class="btn btn-danger">Veuillez vous connecter pour pouvoir reserver une seance.</button>
+            {% endif %}
         {% else %}
             <p>Désolé, il n'y a plus de places disponibles pour cette séance.</p>
         {% endif %}
-        <button id="modifierButton" class="btn btn-danger">Modifier</button>
-        <button id="supprimerButton" class="btn btn-danger">Supprimer</button>
+        {% if user.is_authenticated %}
+        <a href="{% url 'ModifierSceance' uneSceance.id %}" style="text-decoration: none; color: inherit;"><button id="modifierButton" class="btn btn-danger">Modifier</button></a>
+        <a href="{% url 'SupprimerSceance' uneSceance.id %}" style="text-decoration: none; color: inherit;"><button id="supprimerButton" class="btn btn-danger">Supprimer</button></a>
+        {% endif %}
     </center>
 
     <script>
@@ -30,20 +37,17 @@
             }
         });
 
-        document.getElementById("modifierButton").addEventListener("click", function() {
-            if (confirm("Seulement pour les administrateurs !!")) {
-              window.location.href = "{% url 'ModifierSceance' uneSceance.id %}";
-            }
-        });
+//         document.getElementById("modifierButton").addEventListener("click", function() {
+//       if (confirm("Seulement pour les administrateurs !!")) {
+//         window.location.href = "{% url 'ModifierSceance' uneSceance.id %}";
+//       }
+//   });
 
-        document.getElementById("supprimerButton").addEventListener("click", function() {
-            if (confirm("Seulement pour les administrateurs !!")) {
-              window.location.href = "{% url 'SupprimerSceance' uneSceance.id %}";
-            }
-        });
+//         document.getElementById("supprimerButton").addEventListener("click", function() {
+//             if (confirm("Seulement pour les administrateurs !!")) {
+//               window.location.href = "{% url 'SupprimerSceance' uneSceance.id %}";
+//             }
+//         });
     </script>
-
-</div> 
-<br>
 
 {% endblock %}

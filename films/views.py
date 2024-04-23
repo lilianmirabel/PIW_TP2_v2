@@ -1,11 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from films.forms import AjoutFilmsForm, AjoutSceanceForm, ReserveSceanceForm
 from .models import films, Seance, salles
 from datetime import datetime, timedelta
-
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
-
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 
 # def afficheFilm(request):
 #     return render(request, "listeFilms.html", {'films':films.objects.all()})
@@ -43,30 +41,25 @@ class DetailSeance(DetailView):
         context = super().get_context_data(**kwargs)
         uneSceance = self.get_object()
 
-        # Calculate remaining places for the session
         uneSceance.places_restantes = uneSceance.salle.place - uneSceance.places_vendues
-
-        # Calculate end time of the session
+        print(uneSceance.places_restantes)
+        
         heure_diffusion_dt = datetime.combine(datetime.min, uneSceance.heure_diffusion)
         duree_film_dt = datetime.combine(datetime.min, uneSceance.film.duree)
         heure_fin_dt = heure_diffusion_dt + (duree_film_dt - datetime.min)
         heure_fin = heure_fin_dt.time()
 
+        uneSceance.places_restantes = uneSceance.salle.place - uneSceance.places_vendues
+        
+        context['uneSceance'] = uneSceance
         context['heure_fin'] = heure_fin
         return context
 
-class reserverSceance(UpdateView):
-    model = Seance
-    template_name = "reserverSceance.html"
-    form_class = ReserveSceanceForm
-
-    def form_valid(self, form):
-        instance = form.save(commit=False)
-        instance.places_vendues += 1
-        instance.save()
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return '/films/affiche' 
+class reserverSceance(View):
+    def post(self, request, *args, **kwargs):
+        une_sceance = get_object_or_404(Seance, pk=self.kwargs['pk'])
+        une_sceance.places_vendues += 1
+        une_sceance.save()
+        return HttpResponseRedirect(('afficheFilm'))
 
 

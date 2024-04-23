@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'films',
     'salles',
     'administrateur',
+    'usagers'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'PIW_TP2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["PIW_TP2/templates","films/templates","salles/templates", "administrateur/templates"],
+        'DIRS': ["PIW_TP2/templates","films/templates","salles/templates", "administrateur/templates", "usagers/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +80,7 @@ WSGI_APPLICATION = 'PIW_TP2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'PIW_TP3',
+        'NAME': 'piw_tp3',
         'USER': 'admin',
         'PASSWORD': 'root',
         'HOST': '127.0.0.1',
@@ -114,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'Fr-fr'
 
 TIME_ZONE = 'UTC'
 
@@ -127,6 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+LOGIN_REDIRECT_URL = '/'
 STATICFILES_DIRS = ["PIW_TP2/static"]
 
 # Default primary key field type

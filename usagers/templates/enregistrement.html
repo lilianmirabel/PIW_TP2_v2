@@ -1,0 +1,16 @@
+{% extends 'maitreUsage.html' %} 
+
+{% block titre %} 
+    <h1>Gestion des cours - Enregistrer un utilisateur</h1>
+{% endblock %}
+
+{% block contenu %}  
+<form method="post" >
+  <table>
+      {% csrf_token %}
+      {{ form.as_table }}
+  </table>
+  <input type="submit" value='Enregistrer'}>
+  
+</form>
+{% endblock %}

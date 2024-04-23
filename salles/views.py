@@ -3,10 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView, DetailView
-
+from django.contrib.auth.decorators import login_required
 from salles.forms import AjoutSallesForm, ModifierSalleForm
 from films.models import salles
-
 
 class ajoutSalle(CreateView):
     template_name = 'ajoutSalle.html'
@@ -30,6 +29,7 @@ class listeSalle(ListView):
     model = salles
     template_name = "listeSalles.html"
     context_object_name = 'salles'
+
 
 class modifierSalle(UpdateView):
     model = salles
